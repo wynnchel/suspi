@@ -1,0 +1,207 @@
+{
+  "name": "Suspi",
+  "publisher": "th1s1s",
+  "displayName": "Suspi",
+  "icon": "img/suspi-logo.png",
+  "description": "Analyze Suspicous indicators",
+  "keywords": ["ioc","malware","suspicous","malicious","virustotal", "alienvault","inquest"],
+  "version": "0.2.4",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Data Science"
+  ],
+  "bugs": {
+		"email": "suspi@th1s1s.de"
+  },
+  "activationEvents": [
+    "onCommand:suspi.ipscan",
+    "onCommand:suspi.mailscan",
+    "onCommand:suspi.domainscan",
+    "onCommand:suspi.hashscan"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "suspi.ipscan",
+        "category": "suspi",
+        "title": "ipscan"
+      },
+      {
+        "command": "suspi.mailscan",
+        "category": "suspi",
+        "title": "mailscan"
+      },
+      {
+        "command": "suspi.domainscan",
+        "category": "suspi",
+        "title": "domainscan"
+      },
+      {
+        "command": "suspi.hashscan",
+        "category": "suspi",
+        "title": "hashscan"
+      }
+    ],
+    "configuration": [
+      {
+        "id": "suspi.conf",
+        "title": "Providers",
+        "order": 1,
+        "properties": {
+          "conf.providers.activate": {
+            "type": "object",
+            "description": "Available",
+            "properties": {
+              "prop1": {
+                "type": "boolean",
+                "description": "Virustotal"
+              },
+              "prop2": {
+                "type": "boolean",
+                "description": "Inquest (no key)"
+              },
+              "prop3": {
+                "type": "boolean",
+                "description": "AlienVault"
+              },
+              "prop4": {
+                "type": "boolean",
+                "description": "urlscan"
+              },
+              "prop5": {
+                "type": "boolean",
+                "description": "abuseipdb"
+              },
+              "prop6": {
+                "type": "boolean",
+                "description": "urlhaus (no key)"
+              },
+              "prop7": {
+                "type": "boolean",
+                "description": "malwarebazaar (no key)"
+              },
+              "prop8": {
+                "type": "boolean",
+                "description": "filescan"
+              },
+              "prop9": {
+                "type": "boolean",
+                "description": "anyrun"
+              },
+              "prop10": {
+                "type": "boolean",
+                "description": "joesandbox"
+              },
+              "prop11": {
+                "type": "boolean",
+                "description": "crt"
+              },
+              "prop12": {
+                "type": "boolean",
+                "description": "emailrep"
+              },
+              "prop13": {
+                "type": "boolean",
+                "description": "threatfox"
+              }
+            },
+            "additionalProperties": false,
+            "default": {
+              "prop1": false,
+              "prop2": true,
+              "prop3": true,
+              "prop4": false,
+              "prop5": false,
+              "prop6": true,
+              "prop7": true,
+              "prop8": false,
+              "prop9": false,
+              "prop10": false,
+              "prop11": false
+            }
+          },
+          "conf.providers.api": {
+            "type": "object",
+            "description": "API Keys",
+            "properties": {
+              "virustotal": {
+                "type": "string"
+              },
+              "urlscan": {
+                "type": "string"
+              },
+              "abuseipdb": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "conf.providers.request.timeout": {
+            "type": "string",
+            "description": "Default request timeout (ms)",
+            "editPresentation": "singlelineText",
+            "default": "4000"
+          }
+        }
+      },
+      {
+        "id": "Exclusions",
+        "title": "Exclusions",
+        "order": 2,
+        "properties": {
+          "conf.ipscan.exclude": {
+            "type": "string",
+            "description": "IP Scan (ex. 143.0.0.0/8) - private addresses already excluded",
+            "editPresentation": "multilineText"
+          },
+          "conf.mailscan.exclude": {
+            "type": "string",
+            "description": "Mail Scan (office.com)",
+            "editPresentation": "multilineText"
+          },
+          "conf.domainscan.exclude": {
+            "type": "string",
+            "description": "Domain Scan (office.com)",
+            "editPresentation": "multilineText"
+          }
+        }
+      },
+      {
+        "id": "Proxy",
+        "title": "Proxy",
+        "order": 3,
+        "properties": {
+          "conf.proxy.url": {
+            "type": "string",
+            "description": "Proxy Url (if set, will be used)",
+            "editPresentation": "multilineText"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.1",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.75.0",
+    "@vscode/test-electron": "^2.2.2",
+    "eslint": "^8.33.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "axios": "^1.3.4",
+    "form-data": "^4.0.0",
+    "ipaddr.js": "^2.0.1"
+  }
+}
