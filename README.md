@@ -24,7 +24,7 @@ Add the following tld sites to the trusted domains in order to open them
     "https://urlhaus.abuse.ch",
     "https://bazaar.abuse.ch",
     "https://crt.sh",
-    "https://emailrep.io,
+    "https://emailrep.io",
     "https://www.joesecurity.org",
     "https://app.any.run",
     "https://www.filescan.io"
